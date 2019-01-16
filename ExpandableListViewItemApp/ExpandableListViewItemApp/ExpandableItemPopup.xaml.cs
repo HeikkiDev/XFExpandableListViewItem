@@ -40,7 +40,7 @@ namespace ExpandableListViewItemApp
             uint length = 600; // 0.6 second animation
             Easing easing = Easing.CubicOut;
 
-            //
+            // Animación que va cambiando la Y
             Action<double> callback = input =>
             {
                 AbsoluteLayout.SetLayoutBounds(gridContent, new Rectangle(0, input, 1, -1));
@@ -63,7 +63,7 @@ namespace ExpandableListViewItemApp
             Action<double> callbackPadding = input =>
             {
                 gridContent.Padding = new Thickness(input);
-                frameContent.CornerRadius = (float)input + ((input > 3) ? 3 : 2);
+                frameContent.CornerRadius = (float)input + ((input > 3) ? 5 : 2);
             };
             Action<double, bool> finishedPadding = (input, valid) =>
             {
@@ -80,9 +80,50 @@ namespace ExpandableListViewItemApp
             gridContent.Animate("changepadding", callbackPadding, 7, 0, rate, length, easing, finishedPadding);
         }
 
-        private async void CloseImage_Tapped(object sender, EventArgs e)
+        private void CloseImage_Tapped(object sender, EventArgs e)
         {
-            await PopupNavigation.Instance.PopAsync();
+            Cinema cinema = (Cinema)this.BindingContext;
+            double originalHeight = cinema.gridHeight;
+            double originalY = cinema.ViewPointY;
+
+            double start = 0;
+            double end = originalY;
+
+            uint rate = 10; // pace at which animation proceeds
+            uint length = 600; // 0.6 second animation
+            Easing easing = Easing.CubicIn;
+
+            // Animación que va cambiando la Y
+            Action<double> callback = input =>
+            {
+                AbsoluteLayout.SetLayoutBounds(gridContent, new Rectangle(0, input, 1, -1));
+                AbsoluteLayout.SetLayoutFlags(gridContent, AbsoluteLayoutFlags.WidthProportional);
+            };
+
+            // Altura a disminuir
+            Action<double> callbackHeight = input =>
+            {
+                gridContent.HeightRequest = input;
+            };
+
+            // Cambiar Padding y RoundedCorner
+            Action<double> callbackPadding = input =>
+            {
+                gridContent.Padding = new Thickness(input);
+                frameContent.CornerRadius = (float)input + ((input > 3) ? 2 : 5);
+            };
+            Action<double, bool> finishedPadding = async (input, valid) =>
+            {
+                gridContent.Padding = new Thickness(7);
+                frameContent.CornerRadius = 10;
+                await PopupNavigation.Instance.PopAsync();
+            };
+
+            gridContent.Animate("collapse", callback, start, end, rate, length, easing);
+            gridContent.Animate("collapseheight", callbackHeight, mainExpLayout.Height, originalHeight, rate, length, easing);
+            gridContent.Animate("collapsepadding", callbackPadding, 0, 7, rate, length, easing, finishedPadding);
+
+            imageClose.IsVisible = false;
         }
     }
 }

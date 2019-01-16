@@ -162,12 +162,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\cine.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\close_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\cinealbeniz.jpg" />
+    <BundleResource Include="Resources\cinealbeniz.png" />
   </ItemGroup>
 </Project>
