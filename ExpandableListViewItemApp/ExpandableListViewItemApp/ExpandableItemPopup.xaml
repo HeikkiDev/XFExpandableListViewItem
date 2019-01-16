@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             BackgroundColor="Transparent"
+             IsAnimationEnabled="False"
+             x:Class="ExpandableListViewItemApp.ExpandableItemPopup">
+
+    <AbsoluteLayout x:Name="mainExpLayout" Margin="0" Padding="0" SizeChanged="MainExpLayout_SizeChanged">
+
+        <Grid x:Name="gridContent" IsVisible="False" RowSpacing="0" Padding="7">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Frame x:Name="frameContent" CornerRadius="10" HasShadow="False" Padding="4" Margin="0">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Row="0"
+                           Source="cinealbeniz.jpg"
+                           HeightRequest="200"
+                           Aspect="AspectFill"
+                           HorizontalOptions="FillAndExpand"/>
+
+                    <Label Grid.Row="1"
+                        Text="{Binding Name}"
+                        LineBreakMode="TailTruncation"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        HorizontalTextAlignment="Start"
+                        VerticalTextAlignment="Center"/>
+
+                    <Label Grid.Row="2"
+                        Text="{Binding Adress}"
+                        LineBreakMode="TailTruncation"
+                        FontSize="12"
+                        VerticalOptions="Center"
+                        HorizontalTextAlignment="Start"
+                        VerticalTextAlignment="Center"/>
+
+                    <Label Grid.Row="3"
+                        Text="{Binding Phone}"
+                        LineBreakMode="TailTruncation"
+                        FontSize="12"
+                        VerticalOptions="Center"
+                        HorizontalTextAlignment="Start"
+                        VerticalTextAlignment="Center"/>
+
+                </Grid>
+
+            </Frame>
+        </Grid>
+
+        <Image x:Name="imageClose" 
+               AbsoluteLayout.LayoutFlags="PositionProportional"
+               AbsoluteLayout.LayoutBounds="1, 0, -1, -1"
+               Margin="3,5,3,3" 
+               Source="close_icon.png"
+               HeightRequest="25"
+               WidthRequest="25"
+               Opacity="0"
+               IsVisible="False">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="CloseImage_Tapped" NumberOfTapsRequired="1" />
+            </Image.GestureRecognizers>
+        </Image> 
+
+    </AbsoluteLayout>
+
+</pages:PopupPage>
