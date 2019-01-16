@@ -80,6 +80,11 @@ namespace ExpandableListViewItemApp
             gridContent.Animate("changepadding", callbackPadding, 7, 0, rate, length, easing, finishedPadding);
         }
 
+        private void MainExpLayout_LargeBottomSwipe(object sender, EventArgs e)
+        {
+            CloseImage_Tapped(sender, e);
+        }
+
         private void CloseImage_Tapped(object sender, EventArgs e)
         {
             Cinema cinema = (Cinema)this.BindingContext;
